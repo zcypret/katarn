@@ -4,7 +4,7 @@
   "authors": [
     "Zachary Cypret"
   ],
-  "description": "Float based variation of csswizardry-grids. Embrace the nuance.",
+  "description": "A float based variation of csswizardry-grids. Embrace the nuance.",
   "main": "katarn_grid.scss",
   "keywords": [
     "grids",
