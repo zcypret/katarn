@@ -1,0 +1,14 @@
+{
+  "name": "katarn",
+  "version": "0.0.1",
+  "authors": [
+    "Zachary Cypret"
+  ],
+  "description": "Float based variation of csswizardry. Embrace the nuance.",
+  "main": "katarn_grid.scss",
+  "keywords": [
+    "grids",
+    "layout",
+    "grid"
+  ]
+}

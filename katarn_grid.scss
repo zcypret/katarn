@@ -1,0 +1,148 @@
+/*--------------------------------------*\
+  A Float based variation of csswizardry
+\*--------------------------------------*/
+
+$gutter: 20px !default;
+
+$breakpoints: (
+  'palm' '(max-width: 480px)',
+  'lap' '(min-width: 481px) and (max-width: 1023px)',
+  'portable' '(max-width: 1023px)',
+  'desk' '(min-width: 1024px)'
+) !default;
+
+$breakpoint-has-widths: ('palm', 'lap', 'portable', 'desk') !default;
+
+@mixin grid-media-query($media-query) {
+  $breakpoint-found: false;
+
+  @each $breakpoint in $breakpoints {
+    $name: nth($breakpoint, 1);
+    $declaration: nth($breakpoint, 2);
+
+    @if $media-query == $name and $declaration {
+      $breakpoint-found: true;
+
+      @media only screen and #{$declaration} {
+        @content;
+      }
+    }
+  }
+
+  @if not $breakpoint-found {
+    @warn "Breakpoint '#{$media-query}' does not exist";
+  }
+}
+
+.grid {
+  margin-left: -$gutter;
+
+  &:after,
+  &:before {
+    content: ' ';
+    display: table;
+  }
+
+  &:after {
+    display: table;
+  }
+
+  &__item {
+    padding-left: $gutter;
+    width: 100%;
+    float: left;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  &--full {
+    margin-left: 0;
+
+    > .grid__item {
+      padding-left: 0;
+    }
+  }
+
+  &--narrow {
+    margin-left: -($gutter / 2);
+
+    > .grid__item {
+        padding-left: $gutter / 2;
+    }
+  }
+}
+
+@mixin device-type($namespace: '') {
+  $prefix: '.#{$namespace}';
+
+  // Whole
+  #{$prefix}one-whole { width: 100%; }
+
+  // Halves
+  #{$prefix}one-half { width: 50%; }
+
+  // Thirds
+  #{$prefix}one-third { width: 33.333%; }
+  #{$prefix}two-thirds { width: 66.666%; }
+
+  // Quarters
+  #{$prefix}one-quarter { width: 25%; }
+  #{$prefix}two-quarters { @extend #{$prefix}one-half; }
+  #{$prefix}three-quarters { width: 75%; }
+
+  // Fifths
+  #{$prefix}one-fifth { width: 20%; }
+  #{$prefix}two-fifths { width: 40%; }
+  #{$prefix}three-fifths { width: 60%; }
+  #{$prefix}four-fifths { width: 80%; }
+
+  // Sixths
+  #{$prefix}one-sixth { width: 16.666%; }
+  #{$prefix}two-sixths { @extend #{$prefix}one-third; }
+  #{$prefix}three-sixths { @extend #{$prefix}one-half; }
+  #{$prefix}four-sixths { @extend #{$prefix}two-thirds; }
+  #{$prefix}five-sixths { width: 83.333%; }
+
+  // Eighths
+  #{$prefix}one-eighth { width: 12.5%; }
+  #{$prefix}two-eighths { @extend #{$prefix}one-quarter; }
+  #{$prefix}three-eighths { width: 37.5%; }
+  #{$prefix}four-eighths { @extend #{$prefix}one-half; }
+  #{$prefix}five-eighths { width: 62.5%; }
+  #{$prefix}six-eighths { @extend #{$prefix}three-quarters; }
+  #{$prefix}seven-eighths { width: 87.5%; }
+
+  // Tenths
+  #{$prefix}one-tenth { width: 10%; }
+  #{$prefix}two-tenths { @extend #{$prefix}one-fifth; }
+  #{$prefix}three-tenths { width: 30%; }
+  #{$prefix}four-tenths { @extend #{$prefix}two-fifths; }
+  #{$prefix}five-tenths { @extend #{$prefix}one-half; }
+  #{$prefix}six-tenths { @extend #{$prefix}three-fifths; }
+  #{$prefix}seven-tenths { width: 70%; }
+  #{$prefix}eight-tenths { @extend #{$prefix}four-fifths; }
+  #{$prefix}nine-tenths { width: 90%; }
+
+  // Twelfths
+  #{$prefix}one-twelfth { width: 8.333%; }
+  #{$prefix}two-twelfths { @extend #{$prefix}one-sixth; }
+  #{$prefix}three-twelfths { @extend #{$prefix}one-quarter; }
+  #{$prefix}four-twelfths { @extend #{$prefix}one-third; }
+  #{$prefix}five-twelfths { width: 41.666% }
+  #{$prefix}six-twelfths { @extend #{$prefix}one-half; }
+  #{$prefix}seven-twelfths { width: 58.333%; }
+  #{$prefix}eight-twelfths { @extend #{$prefix}two-thirds; }
+  #{$prefix}nine-twelfths { @extend #{$prefix}three-quarters; }
+  #{$prefix}ten-twelfths { @extend #{$prefix}five-sixths; }
+  #{$prefix}eleven-twelfths { width: 91.666%; }
+}
+
+@include device-type;
+
+@each $name in $breakpoint-has-widths {
+  @include grid-media-query($name) {
+    @include device-type('#{$name}--');
+  }
+}
