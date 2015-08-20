@@ -1,3 +1,3 @@
-# A float based variation of [csswizardry](https://github.com/csswizardry/csswizardry-grids)
+# A float based variation of [csswizardry-grids](https://github.com/csswizardry/csswizardry-grids)
 
 I tolerate **whitespace**.
