@@ -84,6 +84,14 @@ $breakpoint-has-widths: ('palm', 'lap', 'portable', 'desk') !default;
         padding-left: $gutter / 2;
     }
   }
+
+  &--wide {
+    margin-left: -($gutter * 2);
+
+    > .grid__item {
+      padding-left: $gutter * 2;
+    }
+  }
 }
 
 
